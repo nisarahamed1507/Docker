@@ -25,7 +25,7 @@ var/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
+# media  # Commented out to allow pushing media files to repository
 
 # If you're using a virtualenv
 venv/
