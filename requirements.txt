@@ -1,0 +1,7 @@
+django==4.2.0
+dj-database-url==2.0.0
+Pillow==9.5.0
+django-crispy-forms==2.0
+crispy-bootstrap5==0.7
+# Uncomment this for PostgreSQL in Docker
+# psycopg2-binary==2.9.6

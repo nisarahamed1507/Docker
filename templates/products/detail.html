@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+            {% else %}
+                {% with product_name=product.name|lower %}
+                    {% if 'laptop' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Laptop" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% elif 'tv' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Smart+TV" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% elif 'phone' in product_name or 'smartphone' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Smartphone" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% elif 'headphone' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Headphones" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% elif 'jeans' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Jeans" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% elif 't-shirt' in product_name or 'tshirt' in product_name or 'shirt' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=T-Shirt" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% elif 'book' in product_name %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Book" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/600x400.png?text=Product" class="card-img-top img-fluid" alt="{{ product.name }}">
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2>{{ product.name }}</h2>
+        <p class="text-muted">Category: {{ product.category.name }}</p>
+        <h4 class="text-primary my-3">₹{{ product.price }}</h4>
+        <p>{{ product.description }}</p>
+        
+        <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="row align-items-end">
+                <div class="col-md-4">
+                    {{ cart_product_form.quantity|as_crispy_field }}
+                    {{ cart_product_form.override }}
+                </div>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                    <a href="{% url 'product_list' %}" class="btn btn-outline-secondary ms-2">Continue Shopping</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
